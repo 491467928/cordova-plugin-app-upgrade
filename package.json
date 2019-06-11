@@ -1,0 +1,28 @@
+{
+  "name": "cordova-plugin-app-upgrade",
+  "version": "0.0.1",
+  "description": "A cordova plugin, app upgrade",
+  "cordova": {
+    "id": "cordova-plugin-app-upgrade",
+    "platforms": [
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/491467928/cordova-plugin-app-upgrade.git"
+  },
+  "keywords": [
+    "cordova",
+    "bugly",
+    "upgrade",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "author": "xiaolong",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/491467928/cordova-plugin-app-upgrade/issues"
+  },
+  "homepage": "https://github.com/491467928/cordova-plugin-app-upgrade#readme"
+}
