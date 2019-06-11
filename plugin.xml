@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-app-upgrade" version="0.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>AppUpgrade</name>
+    <description>A cordova plugin, app upgrade</description>
+    <keywords>cordova,bugly,upgrade</keywords>
+    <preference name="android_appid"/>
+    <preference name="ios_appid"/>
+    <js-module name="AppUpgrade" src="www/AppUpgrade.js">
+        <clobbers target="AppUpgrade"/>
+    </js-module>
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="AppUpgrade">
+                <param name="android-package" value="cordova-plugin-app-upgrade.AppUpgrade"/>
+            </feature>
+            <preference name="android_appid" value="$ANDROID_APPID"/>
+        </config-file>
+        <config-file parent="/*" target="AndroidManifest.xml">
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.READ_LOGS" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+            <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+        </config-file>
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <activity
+                    android:name="com.tencent.bugly.beta.ui.BetaActivity"
+                    android:configChanges="keyboardHidden|orientation|screenSize|locale"
+                    android:theme="@android:style/Theme.Translucent" />
+            <provider
+                    android:name="android.support.v4.content.FileProvider"
+                    android:authorities="${applicationId}.fileProvider"
+                    android:exported="false"
+                    android:grantUriPermissions="true">
+                <meta-data
+                        android:name="android.support.FILE_PROVIDER_PATHS"
+                        android:resource="@xml/provider_paths"/>
+            </provider>
+        </config-file>
+        <resource-file src="android/res/xml/provider_paths.xml" target="res/xml/provider_paths.xml" />
+        <source-file src="src/android/AppUpgrade.java" target-dir="src/xiaolong/cordova/AppUpgrade"/>
+        <framework src="com.tencent.bugly:crashreport_upgrade:latest.release" />
+        <framework src="com.tencent.bugly:nativecrashreport:latest.releas"/>
+    </platform>
+</plugin>
