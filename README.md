@@ -3,6 +3,9 @@ cordova app版本升级插件，
 android集成了腾讯的bugly的升级框架，需要去注册一个appid，官网地址：https://bugly.qq.com/v2/
 ios需要登录appstore的发布页面，拿到appid
 
+#安装
+cordova plugin add cordova-plugin-app-upgrade  --variable android_appid=bugly的appId --variable ios_appid=appstore的appid
+
 #用法
 检测更新
 ```Javascript
