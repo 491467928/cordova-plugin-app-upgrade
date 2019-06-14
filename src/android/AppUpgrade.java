@@ -30,7 +30,6 @@ public class AppUpgrade extends CordovaPlugin {
 	@Override
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		super.initialize(cordova, webView);
-		// your init code here
 		Beta.autoCheckUpgrade = false;
 		Beta.largeIconId = R.mipmap.ic_launcher;
 		Beta.smallIconId = R.mipmap.ic_launcher;

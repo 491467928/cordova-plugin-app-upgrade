@@ -25,7 +25,6 @@
         NSDictionary* dict=[NSJSONSerialization JSONObjectWithData:data
                                                            options:kNilOptions
                                                              error:nil];
-        NSLog(@"%@",dict[@"results"][0][@"version"]);
         CDVPluginResult* pluginResult=nil;
         if(dict[@"results"]){
             NSString* version=dict[@"results"][0][@"version"];
@@ -35,6 +34,7 @@
             [resultDic setObject:releasNote forKey:@"newFeature"];
             NSInteger currentVersionCode=[self versionNameToCode:currentVersion];
             NSInteger upgradeVersionCode=[self versionNameToCode:version];
+            [resultDic setObject:[NSString stringWithFormat:@"%ld",upgradeVersionCode] forKey:@"versionCode"];
             if(upgradeVersionCode>currentVersionCode){
                 UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"发现新版本%@",version] message:releasNote preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction* ok=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
@@ -45,28 +45,24 @@
                 [alert addAction:ok];
                 [alert addAction:update];
                 [self.viewController presentViewController:alert animated:YES completion:nil];
+                pluginResult=[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDic];
             }
         }else{
-            pluginResult=[CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+            pluginResult=[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
         }
         
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
     [dataTask resume];
-    //    CDVPluginResult* pluginResult = nil;
-    //    NSString* echo = [command.arguments objectAtIndex:0];
-    //
-    //    if (echo != nil && [echo length] > 0) {
-    //        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:echo];
-    //    } else {
-    //        pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-    //    }
-    
-    
 }
 -(void)getAppInfo:(CDVInvokedUrlCommand *)command
 {
-    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@""];
+    NSString* currentVersion=[NSBundle mainBundle].infoDictionary[@"CFBundleShortVersionString"];
+    NSInteger versionCode=[self versionNameToCode:currentVersion];
+    NSMutableDictionary* resultDic=[[NSMutableDictionary alloc] init];
+    [resultDic setObject:currentVersion forKey:@"versionName"];
+    [resultDic setObject:[NSString stringWithFormat:@"%ld",versionCode] forKey:@"versionCode"];
+    CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:resultDic];
     [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
 }
 
