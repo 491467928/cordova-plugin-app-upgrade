@@ -1,5 +1,5 @@
 # cordova-plugin-app-upgrade
-version：1.0.1
+version：1.0.2
 
 cordova app版本升级插件，
 android集成了腾讯的bugly的升级框架，需要去注册一个appid，官网地址：https://bugly.qq.com/v2/,
@@ -28,7 +28,7 @@ AppUpgrade.checkUpgrade(function(){
 获取当前版本信息
 ```Javascript
 AppUpgrade.getAppInfo(function(){
-	//成功，返回服务端的更新包信息
+	//成功，返回当前APP的版本信息
 	//{
 	//	versionCode:'版本号，例如102',
 	//	versionName:'版本名称，例如1.0.2'

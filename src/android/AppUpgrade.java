@@ -18,8 +18,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import xiaolong.tour.mobileService.R;
-
 /**
  * This class echoes a string called from JavaScript.
  */
@@ -31,9 +29,6 @@ public class AppUpgrade extends CordovaPlugin {
 	public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 		super.initialize(cordova, webView);
 		Beta.autoCheckUpgrade = false;
-		Beta.largeIconId = R.mipmap.ic_launcher;
-		Beta.smallIconId = R.mipmap.ic_launcher;
-		Beta.defaultBannerId = R.mipmap.ic_launcher;
 		Beta.upgradeStateListener = new UpgradeStateListener() {
 			@Override
 			public void onUpgradeSuccess(boolean isManual) {
