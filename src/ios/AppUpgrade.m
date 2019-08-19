@@ -26,7 +26,7 @@
                                                            options:kNilOptions
                                                              error:nil];
         CDVPluginResult* pluginResult=nil;
-        if(dict[@"results"]){
+        if(dict[@"results"] && [dict[@"results"] count]>0){
             NSString* version=dict[@"results"][0][@"version"];
             NSString* releasNote=dict[@"results"][0][@"releaseNotes"] ;
             NSMutableDictionary* resultDic=[[NSMutableDictionary alloc] init];
