@@ -28,15 +28,18 @@
         CDVPluginResult* pluginResult=nil;
         if(dict[@"results"] && [dict[@"results"] count]>0){
             NSString* version=dict[@"results"][0][@"version"];
-            NSString* releasNote=dict[@"results"][0][@"releaseNotes"] ;
+            NSString* releaseNote=dict[@"results"][0][@"releaseNotes"] ;
+            if(!releaseNote){
+                releaseNote=@"";
+            }
             NSMutableDictionary* resultDic=[[NSMutableDictionary alloc] init];
             [resultDic setObject:version forKey:@"versionName"];
-            [resultDic setObject:releasNote forKey:@"newFeature"];
+            [resultDic setObject:releaseNote forKey:@"newFeature"];
             NSInteger currentVersionCode=[self versionNameToCode:currentVersion];
             NSInteger upgradeVersionCode=[self versionNameToCode:version];
             [resultDic setObject:[NSString stringWithFormat:@"%ld",upgradeVersionCode] forKey:@"versionCode"];
             if(upgradeVersionCode>currentVersionCode){
-                UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"发现新版本%@",version] message:releasNote preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *alert=[UIAlertController alertControllerWithTitle:[NSString stringWithFormat:@"发现新版本%@",version] message:releaseNote preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction* ok=[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
                 UIAlertAction *update=[UIAlertAction actionWithTitle:@"去更新" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     NSString* urlStr=[NSString stringWithFormat:@"itms-apps://itunes.apple.com/cn/app/id%@?mt=8",appid];
